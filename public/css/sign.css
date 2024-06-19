@@ -1,0 +1,314 @@
+.form {
+    display: flex;
+    /* flex: 1; */
+    flex-direction: column;
+    gap: 8px;
+    background-color: #ffffff;
+    padding: 30px;
+    width: 480px;
+    border: 2px solid #d0cece;
+    border-radius: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  
+  ::placeholder {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+                                      /* note: inisialisai 1 untuk login, 2 untuk biodata, dan  */
+  .form button {
+    align-self: flex-end;
+  }
+  
+  .flex-column > label {
+    color: #151717;
+    font-weight: 600;
+  }
+  
+  form .head {
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      flex-direction: column;
+      letter-spacing: 0.5px;
+      text-align: center;
+    }
+    
+  form .head span {
+      font-size: 2.5em;
+      color: #333333;
+      font-weight: bolder;
+      margin: 10px 0 10px 0;
+  }
+    
+  form .head p {
+      font-size: 1.1rem;
+      color: #7C6666;
+  }
+  
+  .inputForm {
+    border: 1.5px solid #ecedec;
+    border-radius: 10px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    transition: 0.2s ease-in-out;
+  }
+  
+  .input {
+    margin-left: 10px;
+    border-radius: 10px;
+    border: none;
+    width: 85%;
+    height: 70%;    /*note*/
+  }
+  
+  .input:focus {
+    outline: none;
+  }
+  
+  .inputForm:focus-within {
+    border: 1.5px solid #2d79f3;
+  }
+  
+  .flex-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .flex-row1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .flex-row > div > label {
+    font-size: 14px;
+    color: black;
+    font-weight: 400;
+  }
+  
+  .span {
+    font-size: 14px;
+    margin-left: 5px;
+    color: #2d79f3;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  
+  .button-submit {
+    margin: 20px 0 10px 0;
+    background-color: #2d79f3;
+    border: none;
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 10px;
+    height: 50px;
+    width: 100%;
+    cursor: pointer;
+    font-weight: bold ;
+  }
+  
+  .button-submit:hover {
+    background-color: #246ee6;
+  }
+  
+  .p {
+    text-align: center;
+    color: black;
+    font-size: 14px;
+    margin: 5px 0;
+  }
+  
+  .btn {
+    margin-top: 10px;
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    gap: 10px;
+    border: 1px solid #ededef;
+    background-color: white;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+  }
+  
+  .btn:hover {
+    border: 1px solid #2d79f3;
+    
+  }
+  
+  /* for image */
+  /* sing up */
+  .image-container {
+    flex: 1;
+    margin-left: 50px; /* Adjust if needed */
+    background-image: url(../images/regular-table-bottom.png), url(../images/pro-table-top-right.png);
+    background-size: contain;
+    background-position: bottom center, right;
+    background-repeat: no-repeat;
+    justify-content: center; /* Center image horizontally */
+  }
+  
+  .image-container img {
+    max-width: 79%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    margin-top: 40px;
+  }
+  
+  /* Login */
+  .image-container1 {
+    flex: 1;
+    margin-left: 60px; /* Adjust if needed */
+    background-image: url(../images/pro-table-top-right.png);
+    background-size: contain;
+    background-position: top right;
+    background-repeat: no-repeat;
+    justify-content: left; /* Center image horizontally */
+  }
+  
+  
+  .image-container1 img {
+    max-width: 80%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    margin-top: 30px;
+    margin-left: 10px;
+  }
+  
+  /* biodata */
+  .image-container2 {
+    flex: 1;
+    margin-left: 90px; /* Adjust if needed */
+    background-image: url(../images/regular-table-bottom.png), url(../images/pro-table-top-right.png);
+    background-size: contain;
+    background-position: bottom, right top;
+    background-repeat: no-repeat;
+    justify-content: center; /* Center image horizontally */
+  
+  }
+  
+  .image-container2 img {
+    max-width: 70%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    margin-top: 95px;
+    margin-bottom: 30px;
+    margin-left: -50px;
+  }
+  
+  
+  
+  /* Next button */
+  
+  .container button {
+    --primary-color: #2d79f3;
+    --secondary-color: #fff;
+    --hover-color: #111;
+    --arrow-width: 10px;
+    --arrow-stroke: 2px;
+    box-sizing: border-box;
+    border: 0;
+    border-radius: 20px;
+    color: var(--secondary-color);
+    padding: 1em 1.8em;
+    background: var(--primary-color);
+    display: flex;
+    transition: 0.2s background;
+    align-items: center;
+    cursor: pointer;
+    gap: 0.6em;
+    font-weight: bold;
+    margin: 0 auto;
+  }
+  
+  form .arrow-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  form .arrow {
+    margin-top: 1px;
+    width: var(--arrow-width);
+    background: var(--primary-color);
+    height: var(--arrow-stroke);
+    position: relative;
+    transition: 0.2s;
+  }
+  
+  form .arrow::before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    border: solid var(--secondary-color);
+    border-width: 0 var(--arrow-stroke) var(--arrow-stroke) 0;
+    display: inline-block;
+    top: -3px;
+    right: 3px;
+    transition: 0.2s;
+    padding: 3px;
+    transform: rotate(-45deg);
+  }
+  
+  form:hover {
+    background-color: var(--hover-color);
+  }
+  
+  form:hover .arrow {
+    background: var(--secondary-color);
+  }
+  
+  form:hover .arrow:before {
+    right: 0;
+  }
+  
+  /* button back */
+  /* button {
+    display: flex;
+    height: 3em;
+    width: 100px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    letter-spacing: 1px;
+    transition: all 0.2s linear;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    background: whitesmoke;
+  
+   }
+   
+   button > svg {
+    margin-right: 5px;
+    margin-left: 5px;
+    font-size: 20px;
+    transition: all 0.4s ease-in;
+   }
+   
+   button:hover > svg {
+    font-size: 1.2em;
+    transform: translateX(-5px);
+   }
+   
+   button:hover {
+    transform: translateY(-2px);
+   } */
+      
