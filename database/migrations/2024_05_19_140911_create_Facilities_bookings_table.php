@@ -14,7 +14,7 @@ return new class extends Migration
         //
         Schema::create('Booking_orders', function(Blueprint $table){
           $table->id('booking_order_id');
-          $table->timestamp('tanggal_booking');
+          $table->timestamp('tanggal_booking')->useCurrent();
           $table->unsignedBigInteger('facility_id');
           $table->unsignedBigInteger('account_id');
           $table->foreign('facility_id')->references('Facility_id')->on('Facilities')->cascadeOnDelete();
