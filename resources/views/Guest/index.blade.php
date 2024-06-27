@@ -131,7 +131,7 @@ https://templatemo.com/tm-570-chain-app-dev
         <div class="col-lg-3">
           <div class="service-item first-service">
             <div class="icon"></div>
-            <a href = "signUp.html">
+            <a href = "{{route('signup')}}">
             <h4>Register Account</h4>
             <p>If you do not have an account yet, please register yourself at the following link. The data entered must be accurate.</p>
             </a>
@@ -148,7 +148,7 @@ https://templatemo.com/tm-570-chain-app-dev
         </div>
         <div class="col-lg-3">
           <div class="service-item third-service">
-            <a href="TransactionForm.html">
+            <a href="{{route('BookingForm',1)}}">
             <div class="icon"></div>
             <h4>Make a Booking</h4>
             <p>Click the available button to make a booking. Then fill out the form according to your needs.</p>
@@ -157,7 +157,7 @@ https://templatemo.com/tm-570-chain-app-dev
         </div>
         <div class="col-lg-3">
           <div class="service-item fourth-service">
-            <a href="history.html">
+            <a href="{{Route('user.history')}}">
             <div class="icon"></div>
             <h4>Check History</h4>
             <p>Regularly check the history to receive confirmation from the admin regarding the booked facility.</p>
@@ -183,11 +183,15 @@ https://templatemo.com/tm-570-chain-app-dev
                         <div class="facilities-hover">
                             <div class="facilities-hover-content"></div>
                         </div>
-                        <img class="img-fluid" src="images/Facilities1.jpeg" alt="Anwar"/>
+                        @if($facility_data[0]->photo == null)
+                          <img src="images/Facilities1.jpeg" alt="Aula Anwar">
+                        @else
+                          <img src="{{asset('/storage/'. $facility_data[0]->photo)}}" alt="Aula Anwar">
+                        @endif
                     </a>
                     <div class="facilities-caption">
                         <div class="facilitiesThreads"></div>
-                        <div class="facilities-caption-subheading text-muted">Anwar Musadad</div>
+                        <div class="facilities-caption-subheading text-muted">{{$facility_data[0]->nama_fasilitas}}</div>
                     </div>
                 </div>
 
@@ -199,11 +203,15 @@ https://templatemo.com/tm-570-chain-app-dev
                       <div class="facilities-hover">
                           <div class="facilities-hover-content"></div>
                       </div>
-                      <img class="img-fluid" src="images/Facilities2.jpg" alt="Anwar"/>
+                      @if($facility_data[1]->photo == null)
+                        <img src="images/Facilities2.jpg" alt="Aula Anwar">
+                      @else
+                        <img src="{{asset('/storage/'. $facility_data[1]->photo)}}" alt="Aula Anwar">
+                      @endif
                   </a>
                   <div class="facilities-caption">
                       <div class="facilitiesThreads"></div>
-                      <div class="facilities-caption-subheading text-muted">Anwar Musadad</div>
+                      <div class="facilities-caption-subheading text-muted">{{$facility_data[1]->nama_fasilitas}}</div>
                   </div>
               </div>
 
@@ -215,11 +223,16 @@ https://templatemo.com/tm-570-chain-app-dev
                         <div class="facilities-hover">
                             <div class="facilities-hover-content"></div>
                         </div>
-                        <img class="img-fluid" src="images/facilities3.jpg" alt="..." />
+                        @if($facility_data[3]->photo == null)
+                          <img class="img-fluid" src="images/facilities3.jpg" alt="..." />
+                        @else
+                          <img src="{{asset('/storage/'. $facility_data[3]->photo)}}" alt="Aula Anwar">
+                        @endif
+
                     </a>
                     <div class="facilities-caption">
                         <div class="facilitiesFinish"></div>
-                        <div class="facilities-caption-subheading text-muted">Badminton Court</div>
+                        <div class="facilities-caption-subheading text-muted">{{$facility_data[3]->nama_fasilitas}}</div>
                     </div>
                 </div>
             </div>
@@ -230,26 +243,39 @@ https://templatemo.com/tm-570-chain-app-dev
                         <div class="facilities-hover">
                             <div class="facilities-hover-content"></div>
                         </div>
-                        <img class="img-fluid" src="images/facilities5.jpg" alt="Volleyball" />
+                        @if($facility_data[4]->photo == null)
+                          <img class="img-fluid" src="images/facilities5.jpg" alt="Volleyball" />
+                        @else
+                          <img src="{{asset('/storage/'. $facility_data[4]->photo)}}" alt="Aula Anwar">
+                        @endif
+
                     </a>
                     <div class="facilities-caption">
                         <div class="facilitiesLines"></div>
-                        <div class="facilities-caption-subheading text-muted">Volleyball Court</div>
+                        <div class="facilities-caption-subheading text-muted">{{$facility_data[4]->nama_fasilitas}}</div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6 mb-4">
                 <!-- facilities item 5-->
+                <form action="{{route('BookingForm','1')}}" method="POST">
+                  @csrf
+                  @method('GET')
                 <div class="facilities-item">
                     <a class="facilities-link" data-bs-toggle="modal" href="#facilitiesModal5">
                         <div class="facilities-hover">
                             <div class="facilities-hover-content"></div>
                         </div>
-                        <img class="img-fluid" src="images/facilities6.jpg" alt="Basketball" />
+                        @if($facility_data[5]->photo == null)
+                          <img class="img-fluid" src="images/facilities6.jpg" alt="Basketball" />
+                        @else
+                          <img src="{{asset('/storage/'. $facility_data[5]->photo)}}" alt="Aula Anwar">
+                        @endif
+
                     </a>
                     <div class="facilities-caption">
                         <div class="facilitiesSouthwest"></div>
-                        <div class="facilities-caption-subheading text-muted">Basketball</div>
+                        <div class="facilities-caption-subheading text-muted">{{$facility_data[5]->nama_fasilitas}}</div>
                     </div>
                 </div>
             </div>
@@ -260,11 +286,16 @@ https://templatemo.com/tm-570-chain-app-dev
                       <div class="facilities-hover">
                           <div class="facilities-hover-content"></div>
                       </div>
-                      <img class="img-fluid" src="images/Facilities4.jpg" alt="Tennis"/>
+                      @if($facility_data[2]->photo == null)
+                          <img class="img-fluid" src="images/Facilities4.jpg" alt="Tennis"/>
+                      @else
+                        <img src="{{asset('/storage/'. $facility_data[2]->photo)}}" alt="Aula Anwar">
+                      @endif
+
                   </a>
                   <div class="facilities-caption">
                       <div class="facilitiesThreads"></div>
-                      <div class="facilities-caption-subheading text-muted">Tennis Court</div>
+                      <div class="facilities-caption-subheading text-muted">{{$facility_data[2]->nama_fasilitas}}</div>
                   </div>
               </div>
             </div>
@@ -322,11 +353,21 @@ https://templatemo.com/tm-570-chain-app-dev
                           <div class="col-lg-8">
                               <div class="modal-body">
                                   <!-- Project details-->
-                                  <h2 class="text-uppercase">AULA ANWAR MUSADAD</h2>
-                                  <p class="item-intro text-muted">Aula dengan kapasitas Kecil dan serba guna</p>
-                                  <img class="img-fluid d-block mx-auto" src="images/Facilities1.jpeg" alt="abdjan" />
-                                  <p style="color: black;">Adapun fasilitas yang tersedia yaitu <strong style="font-weight: bold;">kursi, panggung, toilet, dan tribun</strong></p>
-                                  
+                                  <form action="{{route('BookingForm','1')}}" method="POST">
+                                    @csrf
+                                    @method('GET')
+                                  <h2 class="text-uppercase">{{$facility_data[0]->nama_fasilitas}}</h2>
+                                  <p class="item-intro text-muted">{{$facility_data[0]->Lokasi}}</p>
+                                  @if($facility_data[0]->photo == null)
+                                    <img src="images/Facilities1.jpeg" alt="Aula Anwar">
+                                  @else
+                                    <img src="{{asset('/storage/'. $facility_data[0]->photo)}}" alt="Aula Anwar">
+                                  @endif
+                                  <p style="color: black;">{{$facility_data[0]->Deskripsi}}</p>
+                                  <button class="button button:hover" type="submit">
+                                    Booking Now
+                                  </button>
+                                </form>
                               </div>
                           </div>
                       </div>
@@ -344,11 +385,21 @@ https://templatemo.com/tm-570-chain-app-dev
                           <div class="col-lg-8">
                               <div class="modal-body">
                                   <!-- Project details-->
-                                  <h2 class="text-uppercase">AULA ABDJAN SOELAIMAN</h2>
-                                  <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                  <img class="img-fluid d-block mx-auto" src="images/Facilities2.jpg" alt="Fasilitas2s" />
-                                  <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-
+                                  <form action="{{route('BookingForm','2')}}" method="POST">
+                                    @csrf
+                                    @method('GET')
+                                  <h2 class="text-uppercase">{{$facility_data[1]->nama_fasilitas}}</h2>
+                                  <p class="item-intro text-muted">{{$facility_data[1]->Lokasi}}</p>
+                                  @if($facility_data[1]->photo == null)
+                                    <img src="images/Facilities2.jpg" alt="Aula Anwar">
+                                  @else
+                                    <img src="{{asset('/storage/'. $facility_data[1]->photo)}}" alt="Aula Anwar">
+                                  @endif
+                                  <p style="color: black;">{{$facility_data[1]->Deskripsi}}</p>
+                                  <button class="button button:hover" type="submit">
+                                    Booking Now
+                                  </button>
+                                </form>
                               </div>
                           </div>
                       </div>
@@ -366,11 +417,21 @@ https://templatemo.com/tm-570-chain-app-dev
                           <div class="col-lg-8">
                               <div class="modal-body">
                                   <!-- Project details-->
-                                  <h2 class="text-uppercase">BADMINTON COURT</h2>
-                                  <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                  <img class="img-fluid d-block mx-auto" src="images/facilities3.jpg" alt="..." />
-                                  <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-
+                                  <form action="{{route('BookingForm','3')}}" method="POST">
+                                    @csrf
+                                    @method('GET')
+                                  <h2 class="text-uppercase">{{$facility_data[3]->nama_fasilitas}}</h2>
+                                  <p class="item-intro text-muted">{{$facility_data[3]->Lokasi}}</p>
+                                  @if($facility_data[3]->photo == null)
+                                    <img class="img-fluid" src="images/facilities3.jpg" alt="..." />
+                                  @else
+                                    <img src="{{asset('/storage/'. $facility_data[3]->photo)}}" alt="Aula Anwar">
+                                  @endif
+                                  <p style="color: black;">{{$facility_data[3]->Deskripsi}}</p>
+                                  <button class="button button:hover" type="submit">
+                                    Booking Now
+                                  </button>
+                                </form>
                               </div>
                           </div>
                       </div>
@@ -388,11 +449,21 @@ https://templatemo.com/tm-570-chain-app-dev
                           <div class="col-lg-8">
                               <div class="modal-body">
                                   <!-- Project details-->
-                                  <h2 class="text-uppercase">VOLLEYBALL COURT</h2>
-                                  <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                  <img class="img-fluid d-block mx-auto" src="images/facilities5.jpg" alt="..." />
-                                  <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-
+                                  <form action="{{route('BookingForm','4')}}" method="POST">
+                                    @csrf
+                                    @method('GET')
+                                  <h2 class="text-uppercase">{{$facility_data[4]->nama_fasilitas}}</h2>
+                                  <p class="item-intro text-muted">{{$facility_data[4]->Lokasi}}</p>
+                                  @if($facility_data[4]->photo == null)
+                                    <img class="img-fluid" src="images/facilities5.jpg" alt="Volleyball" />
+                                  @else
+                                    <img src="{{asset('/storage/'. $facility_data[4]->photo)}}" alt="Aula Anwar">
+                                  @endif
+                                  <p style="color: black;">{{$facility_data[4]->Deskripsi}}</p>
+                                  <button class="button button:hover" type="submit">
+                                    Booking Now
+                                  </button>
+                                </form>
                               </div>
                           </div>
                       </div>
@@ -410,11 +481,22 @@ https://templatemo.com/tm-570-chain-app-dev
                           <div class="col-lg-8">
                               <div class="modal-body">
                                   <!-- Project details-->
-                                  <h2 class="text-uppercase">BASKETBALL COURT</h2>
-                                  <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                  <img class="img-fluid d-block mx-auto" src="images/facilities6.jpg" alt="..." />
-                                  <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                                  <form action="{{route('BookingForm','5')}}" method="POST">
+                                    @csrf
+                                    @method('GET')
+                                  <h2 class="text-uppercase">{{$facility_data[5]->nama_fasilitas}}</h2>
+                                  <p class="item-intro text-muted">{{$facility_data[5]->Lokasi}}</p>
+                                  @if($facility_data[5]->photo == null)
+                                    <img class="img-fluid" src="images/facilities6.jpg" alt="Basketball" />
+                                  @else
+                                  <img src="{{ asset('/storage/'. $facility_data[5]->photo) }}" alt="Aula Anwar">
 
+                                  @endif
+                                  <p style="color: black;">{{$facility_data[5]->Deskripsi}}</p>
+                                  <button class="button button:hover" type="submit">
+                                    Booking Now
+                                  </button>
+                                </form>
                           </div>
                       </div>
                   </div>
@@ -433,11 +515,21 @@ https://templatemo.com/tm-570-chain-app-dev
                         <div class="col-lg-8">
                             <div class="modal-body">
                                 <!-- Project details-->
-                                <h2 class="text-uppercase">TENNIS COURT</h2>
-                                <p class="item-intro text-muted">Aula dengan kapasitas Kecil dan serba guna</p>
-                                <img class="img-fluid d-block mx-auto" src="images/Facilities4.jpg" alt="abdjan" />
-                                <p style="color: black;">Adapun fasilitas yang tersedia yaitu <strong style="font-weight: bold;">kursi, panggung, toilet, dan tribun</strong></p>
-
+                                <form action="{{route('BookingForm','6')}}" method="POST">
+                                  @csrf
+                                  @method('GET')
+                                <h2 class="text-uppercase">{{$facility_data[2]->nama_fasilitas}}</h2>
+                                <p class="item-intro text-muted">{{$facility_data[2]->Lokasi}}</p>
+                                @if($facility_data[2]->photo == null)
+                                    <img class="img-fluid" src="images/Facilities4.jpg" alt="Tennis"/>
+                                @else
+                                  <img src="{{asset('/storage/'. $facility_data[2]->photo)}}" alt="Aula Anwar">
+                                @endif
+                                <p style="color: black;">{{$facility_data[2]->Deskripsi}}</p>
+                                <button class="button button:hover" type="submit">
+                                  Booking Now
+                                </button>
+                              </form>
                             </div>
                         </div>
                     </div>

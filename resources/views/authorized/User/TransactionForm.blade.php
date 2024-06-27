@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
   <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
   <!-- Core theme CSS (includes Bootstrap)-->
-  <link href="css/styles.css" rel="stylesheet" />
+  <link href="{{asset('css/styles.css')}}" rel="stylesheet" />
   <!-- instalation tailwindcss -->
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -27,10 +27,10 @@
     <div class="container mx-auto">
         <div class="flex justify-between items-center py-1">
             <div class="logo mr-4">
-                <img src="images/logo.png" alt="E-Facilities">
+                <img src="{{asset('images/logo.png')}}" alt="E-Facilities">
             </div>
             <a href="{{route('user')}}" class="left-button mb-4">
-             <h><img src="images/leftbutton.png" alt="Back">BACK</h>
+             <h><img src="{{asset('images/leftbutton.png')}}" alt="Back">BACK</h>
             </a>
             </a>
         </div>
@@ -45,13 +45,15 @@
       <!-- form start -->
       <form class="flex flex-col" id="reservationForm" method="POST">
         @csrf
+        
+
         <span>Select Facility</span>
         <select class="bg-gray-100 text-gray-800 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
           id="product" , name="facility">
           @foreach($Facility as $facility)
             <option name = "facility_id"
             value="{{$facility->Facility_id}}"
-            {{ old('Facility_id') == $facility->Facility_id ? 'selected' : '' }}>{{ $facility->nama_fasilitas }}</option>
+            {{ old('Facility_id',$id) == $facility->Facility_id ? 'selected' : '' }}>{{ $facility->nama_fasilitas }}</option>
           @endforeach
           </select>
 
@@ -70,6 +72,6 @@
 </div>
 </div>
 
-<script src="js/script.js"></script>
+<script src="{{asset('js/script.js')}}"></script>
 </body>
 </html>

@@ -18,10 +18,10 @@ return new class extends Migration
           $table->unsignedBigInteger('facility_id');
           $table->unsignedBigInteger('account_id');
           $table->foreign('facility_id')->references('Facility_id')->on('Facilities')->cascadeOnDelete();
-          $table->foreign('account_id')->references('id')->on('Accounts')->cascadeOnDelete();
+          $table->foreign('account_id')->references('account_id')->on('Accounts')->cascadeOnDelete();
           $table->enum('status',["Approved" , "Rejected" , "Waiting for approval"])->default("Waiting for approval");
           $table->String("Agenda")->default("Acara tertentu");
-
+          $table->date('tanggal_reservasi');
         });
 
 

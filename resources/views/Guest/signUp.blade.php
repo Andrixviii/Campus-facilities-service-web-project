@@ -17,6 +17,16 @@
             <span>Sign up</span>
         </div>
 
+        @if ($errors->any())
+          <div class="alert alert-danger">
+            <ul>
+              @foreach($errors->all() as $error)
+              <li>{{ $error }}</li>
+              @endforeach
+           </ul>
+         </div>
+       @endif
+
         <!-- input text start -->
         <div class="flex-column">
           <label>Email </label></div>

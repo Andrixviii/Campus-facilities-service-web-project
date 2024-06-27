@@ -30,6 +30,10 @@ class RegisterController extends Controller
       ]);
 
       Account::create($Account_info);
+      session()->forget('email');
+      session()->forget('phone_number');
+      session()->forget('password');
+      session()->forget('password_confirm');
       return redirect()->route('login');
 
 

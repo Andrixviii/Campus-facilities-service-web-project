@@ -22,7 +22,10 @@ use Andyabih\LaravelToUML\Http\Controllers\LaravelToUMLController;
 
 // Guest Routes
 Route::middleware(['guest'])->group(function () {
-    Route::view('/', '/guest/index')->name('Home');
+    Route::get('/', function(){
+      $facility_data = facility::all();
+      return view('/guest/index',compact('facility_data'));
+    })->name('Home');
     Route::view('/biodata', '/guest/biodata')->name('signup_2');
     Route::post('/biodata', [RegisterController::class, 'Register']);
     Route::get('/login', [LoginController::class, 'get_view'])->name('login');
@@ -35,12 +38,17 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/myadmin', function () {
         $facility_list = facility::all();
-      
+
         return view('/authorized/Admin/index_admin', compact('facility_list'));
     })->name('admin');
 
     Route::get('/tableconfirm', function () {
-        $booking_list = booking_orders::with('facility', 'Account')->get();
+        $booking_list = booking_orders::with('facility', 'Account')
+        ->where('status',"Waiting for approval")
+        ->whereHas('Account', function($query) {
+          $query->where('Role', 'User');
+        })
+        ->paginate(10);
         return view('/authorized/Admin/TablesConfirm', compact('booking_list'));
     })->name('admin.confirm');
 
@@ -50,7 +58,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     })->name('admin.userlist');
 
     Route::get('/historybooking', function () {
-        $history_list = booking_history::with('booking_orders')->get();
+        $history_list = booking_history::with('booking_orders')
+        ->whereHas('booking_orders', function($query) {
+          $query->where('status','<>' , 'Waiting for approval');
+        })
+        ->paginate(10);
         return view('/authorized/Admin/HistoryAllUser', compact('history_list'));
     })->name('admin.history');
 
@@ -65,12 +77,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/myuser', function(){
       $user_data = Auth::user();
-      return view('/authorized/User/Dashboard',compact('user_data'));
+      $facility_data = facility::all();
+      return view('/authorized/User/Dashboard',compact('user_data','facility_data'));
     })->name('user');
 
     Route::get('/historyuser', function () {
         $history_list = booking_history::with('booking_orders')->get();
-        $user_id = Auth::user()->id;
+        $user_id = Auth::user()->account_id;
         return view('/authorized/User/history', compact('history_list', 'user_id'));
     })->name('user.history');
 
@@ -87,8 +100,8 @@ Route::middleware(['auth', 'user'])->group(function () {
 
     Route::patch('/Changepassword' , [accountController::class,'ChangePass']);
 
-    Route::view('/BookingForm', '/authorized/User/TransactionForm', ['Facility' => facility::all()])->name('BookingForm');
-    Route::post('/BookingForm', [bookingController::class, 'store']);
+    Route::get('/BookingForm/{id}',[bookingController::class , 'show'])->name('BookingForm');
+    Route::post('/BookingForm/{id}', [bookingController::class, 'store']);
 
     Route::get('/EditBookingForm/{id}', [bookingController::class, 'edit'])->name('editForm');
     Route::patch('/booking/edit/{id}', [bookingController::class, 'update'])->name('booking.update');

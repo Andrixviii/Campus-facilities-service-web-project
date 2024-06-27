@@ -6,7 +6,7 @@ use App\Models\Account;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
-class accountController
+class accountController extends Controller
 {
     //
     function edit(Request $request){
@@ -18,17 +18,24 @@ class accountController
         "Full_name" => "required",
         "Faculty" => "required",
         "Majoring"  => "required",
-        "Angkatan" => "required",
+        "Angkatan" => "required|min:4",
         "email" => "required|email",
         "Number_phone" => "required|min:10"
       ]);
 
       if($account->photo != null){
         Storage::disk('public')->delete($account->photo);
+        $path = $request->file('file')->store('uploads', 'public');
+        $account->photo = $path;
       }
-      $path = $request->file('file')->store('uploads', 'public');
+
+      else{
+        $path = $request->file('file')->store('uploads', 'public');
+        $account->photo = $path;
+      }
+
       $Data = array_slice($request->all() , 1, 6);
-      $account->photo = $path;
+      //$account->photo = $path;
       $account->update($Data);
       $account->save();
       return redirect()->route('user')->with('success', 'Data Profile berhasil diperbarui.');

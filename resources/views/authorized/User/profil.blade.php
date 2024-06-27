@@ -77,7 +77,7 @@
             <div class="col-md-4 border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                   @if($user_data->photo == null)
-                    <img class="rounded-circle mt-5" width="150px" src="images/profil.JPG">
+                    <img class="rounded-circle mt-5" width="150px" src="images/Profil.png">
                   @else
                     <img class="rounded-circle mt-5" width="150px" img src="{{ asset('storage/' . $user_data->photo) }}">
                   @endif
@@ -105,20 +105,29 @@
                             Back
                         </a>
                     </div>
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                      <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                      </ul>
+                    </div>
+                    @endif
 
                     <div class="row mt-3">
                         <div class="col-md-12"><label class="labels">Full Name</label>
-                          <input type="text" class="form-control" placeholder="full name" value="" name="Full_name"></div>
+                          <input type="text" class="form-control" placeholder="full name" value="{{$user_data->Full_name}}" name="Full_name"></div>
                         <div class="col-md-12"><label class="labels">Major</label>
-                          <input type="text" class="form-control" placeholder="enter your major" value="" name="Majoring"></div>
+                          <input type="text" class="form-control" placeholder="enter your major" value="{{$user_data->Majoring}}" name="Majoring"></div>
                         <div class="col-md-12"><label class="labels">Batch</label>
-                          <input type="text" class="form-control" placeholder="enter your batch" value="" name="Angkatan"></div>
+                          <input type="text" class="form-control" placeholder="enter your batch" value="{{$user_data->Angkatan}}" name="Angkatan"></div>
                         <div class="col-md-12"><label class="labels">Faculty</label>
-                          <input type="text" class="form-control" placeholder="enter your faculty" value="" name="Faculty"></div>
+                          <input type="text" class="form-control" placeholder="enter your faculty" value="{{$user_data->Faculty}}" name="Faculty"></div>
                         <div class="col-md-12"><label class="labels">No WhatsApp</label>
-                          <input type="text" class="form-control" placeholder="enter your number" value="" name="Number_phone"></div>
+                          <input type="text" class="form-control" placeholder="enter your number" value="{{$user_data->Number_phone}}" name="Number_phone"></div>
                         <div class="col-md-12"><label class="labels">Email</label>
-                          <input type="text" class="form-control" placeholder="enter your email" value="" name="email"></div>
+                          <input type="text" class="form-control" placeholder="enter your email" value="{{$user_data->email}}" name="email"></div>
                     </div>
                     <div class="mt-5 text-center">
                           <button class="btn btn-primary profile-button" type="submit">Edit Profile</button>

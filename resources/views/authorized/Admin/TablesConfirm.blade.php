@@ -141,14 +141,14 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                          @if($booking_list->total() != 0)
                                               @foreach($booking_list as $data)
-                                                @if($data->Account->Role == "User" && $data->status == "Waiting for approval")
                                                 <tr>
                                                     <td>{{$data->Account->Full_name}}</td>
                                                     <td>{{$data->facility->nama_fasilitas}}</td>
-                                                    <td>{{$data->tanggal_booking}}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($data->tanggal_booking)->toDayDateTimeString()}}</td>
                                                     <td>{{$data->Agenda}}</td>
-                                                    <td>Monday, 13rd March 2024</td>
+                                                    <td>{{ \Carbon\Carbon::parse($data->tanggal_reservasi)->toDayDateTimeString()}}</td>
                                                     <td>{{$data->status}}</td>
                                                     <td class="relative flex items-center">
                                                         <form action="{{ route('bookings.unconfirm', $data->booking_order_id)}}" method="POST" style="display:inline;">
@@ -167,10 +167,13 @@
                                                         </form>
                                                     </td>
                                                 </tr>
-                                                @endif
                                               @endforeach
+                                              @else
+                                                <td valign="top" colspan="7" class="dataTables_empty">No data available in table</td>
+                                            @endif
                                             </tbody>
                                         </table>
+                                      {{ $booking_list->links() }}
                                     </div>
                                 </div>
                             </section>

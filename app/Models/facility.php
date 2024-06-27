@@ -13,7 +13,6 @@ class facility extends Model
     protected $fillable = [
         "nama_fasilitas",
         "Lokasi",
-        "ketersediaan",
         "Deskripsi",
         "photo"
 

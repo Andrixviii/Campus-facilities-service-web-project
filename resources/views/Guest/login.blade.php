@@ -18,6 +18,16 @@
             <span>Sign in</span>
         </div>
 
+        @if ($errors->any())
+          <div class="alert alert-danger">
+            <ul>
+              @foreach($errors->all() as $error)
+              <li>{{ $error }}</li>
+              @endforeach
+           </ul>
+         </div>
+       @endif
+
         <!-- input text -->
         <div class="flex-column">
           <label>Email </label></div>
@@ -36,13 +46,7 @@
 
           <!-- input text end -->
 
-        <div class="flex-row1">
-          <div>
-          <input type="checkbox">
-          <label>Remember me </label>
-          </div>
-          <span class="span">Forgot password?</span>
-        </div>
+    
 
         <!-- button -->
         <button type="submit" class="button-submit" >Login</button>

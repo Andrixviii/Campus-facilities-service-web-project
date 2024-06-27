@@ -76,7 +76,11 @@
         <div class="row">
             <div class="col-md-4 border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                    <img class="rounded-circle mt-5" width="150px" src="images/profil.JPG">
+                  @if($user_data->photo == null)
+                    <img class="rounded-circle mt-5" width="150px" src="images/Profil.png">
+                  @else
+                    <img class="rounded-circle mt-5" width="150px" img src="{{ asset('storage/' . $user_data->photo) }}">
+                  @endif
                     <span class="font-weight-bold">{{$user_data->Full_name}}</span>
                     <span class="text-black-50">{{$user_data->email}}</span>
                     <span>

@@ -82,7 +82,7 @@
 
             <!-- logout check paling bawah -->
             <li class="nav-item">
-                <a class="nav-link" href="#" data-bs-toggle="modal" >
+                <a class="nav-link" href="#logoutModal" data-bs-toggle="modal" >
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
                     Logout
                 </a>
@@ -137,26 +137,30 @@
                                                     <th>Responsible</th>
                                                     <th>Facility</th>
                                                     <th>Agenda</th>
-                                                    <th>Date</th>
+                                                    <th>Date of Verification</th>
                                                     <th>Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                             @if($history_list->total() != 0)
                                                 @foreach($history_list as $data)
-                                                @if($data->booking_orders->status!="Waiting for approval")
+
                                                 <tr>
                                                     <td>{{$data->booking_orders->Account->Full_name}}</td>
                                                     <td>{{$data->booking_orders->facility->nama_fasilitas}}</td>
                                                     <td>{{$data->booking_orders->Agenda}}</td>
-                                                    <td>{{$data->booking_orders->tanggal_booking}}</td>
+                                                    <td>{{\Carbon\Carbon::parse($data->tanggal_booking)->toDayDateTimeString()}}</td>
                                                     <td><span class="badge text-bg-success">
                                                       {{$data->booking_orders->status}}
                                                     </span></td>
                                                 </tr>
-                                                @endif
                                                 @endforeach
+                                             @else
+                                                  <td valign="top" colspan="5" class="dataTables_empty">No data available in table</td>
+                                             @endif
                                             </tbody>
                                         </table>
+                                        {{$history_list->links() }}
                                     </div>
                                 </div>
                             </section>

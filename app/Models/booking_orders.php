@@ -15,7 +15,8 @@ class booking_orders extends Model
         'account_id',
         'booking_date',
         'facility_id',
-        "Agenda"
+        "Agenda",
+        "tanggal_reservasi"
     ];
 
     public function facility(){

@@ -5,29 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\booking_orders;
 use App\Models\booking_history;
 use App\Models\facility;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class bookingController extends Controller
 {
-    public function index(Request $request){
-        $query = booking::with('facility');
 
-        $search = $request->input('search');
-        if ($search) {
-            $bookings = booking::where('name', 'like', "%{$search}%")->paginate(5);
-        } else {
-            $bookings = booking::paginate(5);
-        }
-        return view('bookings.index', compact('bookings'));
-    }
 
-    public function create(){
-        $facilities = Facility::all();
-        return view('bookings.create', compact('facilities'));
-    }
 
     public function store(Request $request){
+
         $user_id = Auth::user()->account_id;
 
         $validatedData = $request->validate([
@@ -38,7 +26,7 @@ class bookingController extends Controller
         $data=[
           "account_id" => $user_id,
           "facility_id" => $request->facility,
-          "tanggal_booking"=>$request->tanggal,
+          "tanggal_reservasi"=>$request->tanggal,
           "Agenda"=>$request->feedback
         ];
 
@@ -48,11 +36,10 @@ class bookingController extends Controller
 
     }
 
-    public function edit($id)
-{
+    public function edit($id){
     $BookID= booking_orders::find($id); // Asumsikan Facility adalah model untuk tabel fasilitas
     return view('/authorized/User/editBooking', compact("BookID"));
-}
+    }
 
 
     public function update(Request $request,$id){
@@ -61,9 +48,14 @@ class bookingController extends Controller
             'tanggal'=>'required|date',
         ]);
         $booking= booking_orders::find($id);
-        $booking->TanggalReservasi = $request->tanggal;
-        $booking->save();
 
+        $new_data = [
+          "tanggal_reservasi" => $request->tanggal,
+          "Agenda"=>($booking->Agenda),
+          "facility_id"=>$booking->facility_id,
+          "account_id"=>$booking->account_id
+        ];
+        booking_orders::create($new_data);
         return redirect()->route('user.history')->with('succes', 'bookings has been new generate');
     }
 
@@ -74,17 +66,34 @@ class bookingController extends Controller
         return redirect()->route('user.history')->with('succes', 'booking delete');
     }
 
-    public function show(booking $booking)
-    {
-        return view('bookings.show', compact('booking'));
+    public function show($id)
+    {   $Facility = facility::all();
+        return view('/authorized/user/TransactionForm', compact('Facility','id'));
     }
 
     public function confirm($id)
     {
         $booking = booking_orders::find($id);
-        $booking->status = "Approved";
-        $booking->save();
-        booking_history::create(["booking_order_id" => $booking->booking_order_id]);
+        $other_booking = DB::table('booking_orders')->select('booking_order_id')
+                                                    ->where('Agenda','=',$booking->Agenda,'and')
+                                                    ->where('booking_order_id','!=',$id, 'and')
+                                                    ->where('status','!=',"Waiting for Approval")
+                                                    ->first();
+        if($other_booking != null){
+          $other_booking_data = booking_orders::find($other_booking->booking_order_id);
+          $booking->status = "Approved";
+          $booking->save();
+          $other_booking_data->delete();
+          DB::table('booking_history')->delete('*')->where('booking_order_id','=',$other_booking->booking_order_id);
+          booking_history::create(["booking_order_id" => $booking->booking_order_id]);
+        }
+
+        else{
+          $booking->status = "Approved";
+          $booking->save();
+          booking_history::create(["booking_order_id" => $booking->booking_order_id]);
+        }
+
 
         return redirect()->route('admin.confirm')->with('success', 'booking berhasil dikonfirmasi');
     }
@@ -92,16 +101,23 @@ class bookingController extends Controller
     public function unconfirm($id)
     {
         $booking = booking_orders::find($id);
-        $booking->status = "Rejected";
-        $booking->save();
-        booking_history::create(["booking_order_id" => $booking->booking_order_id]);
+        $other_booking = DB::table('booking_orders')->select('booking_order_id')
+                                                    ->where('Agenda','=',$booking->Agenda,'and')
+                                                    ->where('booking_order_id','!=',$id, 'and')
+                                                    ->where('status','!=',"Waiting for Approval");
+
+        if($other_booking != null){
+          $booking->delete();
+        }
+
+        else{
+          $booking->status = "Rejected";
+          $booking->save();
+          booking_history::create(["booking_order_id" => $booking->booking_order_id]);
+        }
+
 
         return redirect()->route('admin.confirm')->with('success', 'Konfirmasi booking berhasil dibatalkan');
     }
 
-    public function history()
-    {
-        $bookings = booking::onlyTrashed()->paginate(5);
-        return view('bookings.history', compact('bookings'));
-    }
 }

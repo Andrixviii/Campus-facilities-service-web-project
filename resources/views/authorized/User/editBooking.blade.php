@@ -29,7 +29,7 @@
             <div class="logo mr-4">
                 <img src="{{asset('images/logo.png')}}" alt="E-Facilities">
             </div>
-            <a href="index.html" class="left-button mb-4">
+            <a href="{{Route('user')}}" class="left-button mb-4">
              <h><img src="{{asset('images/leftbutton.png')}}" alt="Back">BACK</h>
             </a>
             </a>
@@ -42,11 +42,21 @@
   <div class="flex flex-col items-center justify-center h-screen light">
     <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6 mt-24">
         <h2 class="text-4xl font-bold text-gray-800 mb-8 text-center">Booking Form</h2>
+        @if ($errors->any())
+          <div class="alert alert-danger">
+            <ul>
+              @foreach($errors->all() as $error)
+              <li>{{ $error }}</li>
+              @endforeach
+           </ul>
+         </div>
+       @endif
       <!-- form start -->
       <form class="flex flex-col" id="reservationForm" method="POST" action="{{route('booking.update' , ['id'=>$BookID])}}">
         @csrf
         @method("PATCH")
         <span>Change reservation date</span>
+
         <input placeholder="Reservation date" class="bg-gray-100 text-gray-800 border-0 rounded-md p-2 mb-4 focus:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
         type="date" id="reservationDate"name="tanggal">
           <button id="SubmitButton" class="bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150" type="submit">Submit</button>

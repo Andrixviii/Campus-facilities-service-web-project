@@ -83,7 +83,7 @@
             </thead>
             <tbody>
               @foreach($history_list as $data)
-              @if($data->booking_orders->Account->id == $user_id)
+              @if($data->booking_orders->Account->account_id == $user_id && $data->booking_orders->status != "Waiting for approval")
               <tr>
                 <td>{{$data->booking_orders->Account->Full_name}}</td>
                 <td>{{$data->booking_orders->facility->nama_fasilitas}}</td>
